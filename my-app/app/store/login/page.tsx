@@ -19,7 +19,7 @@ export default function Login() {
     }
 
     if (state.message !== "") {
-        redirect("/simple_db")
+        redirect("/store")
     }
 
     return (

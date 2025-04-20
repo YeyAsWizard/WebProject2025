@@ -21,7 +21,7 @@ export default function Register() {
         )
     }
     if(state.message !== ""){
-        redirect("/simple_db")
+        redirect("/store")
     }
   return (
     <div>
