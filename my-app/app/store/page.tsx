@@ -3,94 +3,76 @@ import TodoItem from "@/components/TodoItem";
 import prisma from "@/utils/db"
 import { revalidatePath } from "next/cache";
 import STYLE from "@/constants/style";
+import { title } from "process";
+import ProductCard from "@/components/store_ui/ProductCard";
+import StoreHeader from "@/components/store_ui/StoreHeader";
+import { getSession } from "@/utils/loginUser";
+import { Session } from "inspector/promises";
 
 
-export default async function SimpleDB() {
+export default async function Store() {
 
-  const result = await prisma.todo.create({
-    data:{
-      title: "learn how to use prisma 3",
-      done: true,
-    }
-  })
-  console.log(result)
+  // const result = await prisma.product.create({
+  //   data:{
+  //     title: "Laptop Acer 2022",
+  //     price: 2000,
+  //     stock: 0,
+  //     sale: 0,
+  //     likes: 200,
+  //     image: "../../public/p6/6.jpg",
+  //   }
+  // })
+  // console.log(result)
   
-  const todo = await (await prisma.todo.findFirst())
-  const todos = await (await prisma.todo.findMany())
-  const todoX = await (await prisma.todo.findMany({where: {title: "xxx"}}))
-  const todoThird = todos[2];
+  // const todo = await (await prisma.todo.findFirst())
+  // const todos = await (await prisma.todo.findMany())
+  // const todoX = await (await prisma.todo.findMany({where: {title: "xxx"}}))
+  // const todoThird = todos[2];
+  
+  let session;
+  try{
+    session = await getSession()
+    console.log(session)
+  } catch(e){
+    console.log("Error: ", e)
+    session = null
+  }
+  const products = await (await prisma.product.findMany())
 
-  // async function addTask(formData: FormData){
-  //   "use server"
-  //   const title = formData.get("title") as string;
-  //   const done = formData.get("done") === "on";
-  //   console.log("title: ", title, "done: ", done? "true" : "false")
-  //   await prisma.todo.create({  
-  //     data: {
-  //       title,
-  //       done,
-  //     }
-  //   })
-  //   revalidatePath("/simple_db")
-  // }
-
-  // async function deleteTask(id:string){
-  //   "use server"
-  //   console.log("Delete task")
-  //   await prisma.todo.delete({where: {id}})
-  //   revalidatePath("/simple_db")
-  // }
-
-  // async function toggleTask(id: string, done: boolean) {
-  //   "use server"
-  //   console.log("Toggle task")
-  //   await prisma.todo.update({
-  //     where: { id },
-  //     data: { done }
-  //   })
-  //   revalidatePath("/simple_db")
-  // }
-
-  console.log("First record:", todos)
+  console.log("First record:", products)
 
   return (
     <div>
-      Hello world!
+      {JSON.stringify(session)}
+      {/* Hello world!
       Simple DB
-      find first : {JSON.stringify(todo)}
+      find first : {JSON.stringify(products[0])}
       <hr />
       <br />
-      find many : { JSON.stringify(todos) }
+      find many : { JSON.stringify(products) }
       <hr />
       <br />
-      find with condition todoX: { JSON.stringify(todoX) }
+      find with condition todoX: { JSON.stringify(products) }
       <hr />
-      <br />s
-      find third in todo: { JSON.stringify(todoThird) }
-      {/* <ul>
-        {todos.map((todo, index) => (
-          <TodoItem 
-          key={todo.id}
-          id={todo.id}
+      <br />
+      find third in todo: { JSON.stringify(products[2]) } */}
+      <StoreHeader />
+      <p className="flex text-2xl lg:text-3xl  font-semibold mx-5 my-5">Store Page</p>
+      <hr className="border-2 mb-5" />
+      <ul className="grid mx-5 grid-cols-2 gap-4 lg:grid-cols-4">
+        {products.map((product, index) => (
+          <ProductCard 
+          key={product.id}
+          id={product.id}
           index={index}
-          title={todo.title}
-          done={todo.done}
-          deleteTask={deleteTask}
-          toggleTask={toggleTask}
+          title={product.title}
+          price={product.price}
+          stock={product.stock}
+          sale={product.sale}
+          image={product.image}
           />
         ))}
       </ul>
-
-        <div>
-          <h2>Add task</h2>
-          <form action={addTask}>
-            <input className={`${STYLE}`} type="text" name="title" placeholder="Title" />
-            <input className={`${STYLE}`} type="checkbox" name="done" />
-            <button className={`${STYLE}`} type="submit">Add</button>
-          </form>
-
-        </div> */}
-
     </div>
   )
 }

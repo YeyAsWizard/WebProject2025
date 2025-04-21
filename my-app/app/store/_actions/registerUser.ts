@@ -7,10 +7,11 @@ export default async function registerUser(prevState: unknown ,formData: FormDat
     const name = formData.get("name") as string
     const email = formData.get("email") as string
     const password =  await hashPassword(formData.get("password") as string)
+    const address =  ""
     console.log(name, email, password) 
 
     try {
-        await prisma.user.create({data: { name, email, password}})
+        await prisma.user.create({data: { name, email, password, address}})
         
     }
     catch(e) {

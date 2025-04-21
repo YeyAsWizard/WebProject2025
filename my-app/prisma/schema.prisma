@@ -24,14 +24,16 @@ model User {
   name      String
   email     String   @unique
   password  String
+  address   String
 }
 
 model Product {
-  id        String   @id @default(uuid())
+  id        Int   @id @default(autoincrement())
   title     String
   price     Float
   stock     Int
   sale      Int
+  image     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
