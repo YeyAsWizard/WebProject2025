@@ -23,22 +23,24 @@ export default function Login() {
     }
 
     return (
-        <form action={action}>
-            <h1>Login</h1>
-            <div>
-                <label htmlFor="email">Email: </label>
-                <input className={STYLE} name="email" type="email" />
-            </div>
-            <div>
-                <label htmlFor="password">Password: </label>
-                <input className={STYLE} name="password" type="password" />
-            </div>
-            <div>
-                <input className={STYLE} name="remember" type="checkbox" />
-                <label htmlFor="remember">Remember</label>
-            </div>
-            <div>
-                <button type="submit" className={STYLE}>Login</button>
+        <form action={action} className="flex justify-center">
+            <div className="flex flex-col border-2">
+                <h1 className="text-2xl">Login</h1>
+                <div>
+                    <label htmlFor="email">Email: </label><br/>
+                    <input className={STYLE} name="email" type="email" />
+                </div>
+                <div>
+                    <label htmlFor="password">Password: </label><br/>
+                    <input className={STYLE} name="password" type="password" />
+                </div>
+                <div>
+                    <input className={STYLE} name="remember" type="checkbox" />
+                    <label htmlFor="remember">Remember</label>
+                </div>
+                <div>
+                    <button type="submit" className={STYLE}>Login</button>
+                </div>
             </div>
         </form>
     )

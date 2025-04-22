@@ -25,6 +25,7 @@ model User {
   email     String   @unique
   password  String
   address   String
+  role      String
 }
 
 model Product {

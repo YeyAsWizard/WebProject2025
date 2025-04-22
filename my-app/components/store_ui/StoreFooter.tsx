@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link'
 
-export default function StoreHeader(){
+export default function StoreFooter(){
   return (
-    <header className='flex w-[100%] bg-black py-2'>
+    <footer className='flex w-[100%] bg-black py-2'>
         <div className='flex mx-5 my-2 lg:my-2 justify-between w-[100%]'>
             <div className='flex'>
                 <div className='w-[2rem] h-[2rem] border-4 border-white rounded-xl mr-2 lg:w-[2.5rem] lg:h-[2.5rem] lg:border-8 lg:rounded-2xl'>
@@ -18,6 +18,6 @@ export default function StoreHeader(){
                 <Link className='ml-5' href='/store/register'>Register</Link>
             </div>
         </div>
-    </header>
+    </footer>
   )
 }
